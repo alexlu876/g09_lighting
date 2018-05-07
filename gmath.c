@@ -61,11 +61,14 @@ color calculate_specular(double light[2][3], double *sreflect, double *view, dou
   s.blue = 0;
 
   double cosine = dot_product(normal, light[LOCATION]);
+  if(cosine <= 0){
+    return s;
+  }
   double hold[3];
   
-  hold[0] = 2 * cosine * normal[0] - light[LOCATION][0];
-  hold[1] = 2 * cosine * normal[1] - light[LOCATION][1];
-  hold[2] = 2 * cosine * normal[2] - light[LOCATION][2];
+  hold[0] = 2 * cosine * normal[RED] - light[LOCATION][RED];
+  hold[1] = 2 * cosine * normal[GREEN] - light[LOCATION][GREEN];
+  hold[2] = 2 * cosine * normal[BLUE] - light[LOCATION][BLUE];
 
   double argument = dot_product(hold, view);
   
